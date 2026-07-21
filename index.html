@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Transfer Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="https://propstarportal.com/files/propstar-logo.png">
+</head>
+<body>
+
+  <div class="ltf-wrap">
+    <div class="ltf-header">
+      <div class="ltf-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div>
+        <h1>Lead Transfer Form</h1>
+        <p>Manage and track all incoming leads in one place.</p>
+      </div>
+    </div>
+
+    <div class="ltf-card">
+      <form id="leadTransferForm" novalidate>
+        <div class="ltf-grid">
+
+          <div class="ltf-field" id="field-leadDate">
+            <label for="leadDate">Lead Date<span class="req">*</span></label>
+            <input type="date" id="leadDate" name="leadDate">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field" id="field-firstName">
+            <label for="firstName">First Name<span class="req">*</span></label>
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field" id="field-lastName">
+            <label for="lastName">Last Name<span class="req">*</span></label>
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field" id="field-primaryPhone">
+            <label for="primaryPhone">Primary Ph.No<span class="req">*</span></label>
+            <input type="tel" id="primaryPhone" name="primaryPhone" placeholder="(555) 123-4567" maxlength="12" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field full" id="field-addressOne">
+            <label for="addressOne">Property Address<span class="req">*</span></label>
+            <input type="text" id="addressOne" name="addressOne" placeholder="123 Main Street, Dallas, TX 75201" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field" id="field-currentCarrier">
+            <label for="currentCarrier">Monthly Payment / Coverage<span class="req">*</span></label>
+            <input type="text" id="currentCarrier" name="currentCarrier" placeholder="Monthly Payment / Coverage" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field" id="field-income">
+            <label for="income">Household Income<span class="req">*</span></label>
+            <input type="text" id="income" name="income" placeholder="Household Income" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field full" id="field-comments">
+            <label for="comments">Lead Notes<span class="req">*</span></label>
+            <textarea id="comments" name="comments" placeholder="Enter lead notes..."></textarea>
+            <span class="ltf-error"></span>
+          </div>
+
+        </div>
+
+        <hr class="ltf-divider">
+
+        <div class="ltf-actions">
+          <button type="submit" class="ltf-submit" id="submitBtn">
+            <span class="ltf-spinner"></span>
+            <span id="submitBtnText">Transfer Lead</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="ltf-toast" id="toast">
+    <svg class="ltf-toast-icon" id="toastIcon" viewBox="0 0 24 24" fill="none" stroke-width="2"></svg>
+    <span id="toastText"></span>
+  </div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+:root {
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --field-bg: #f3f4f6;
+    --text: #111827;
+    --text-dim: #6b7280;
+    --placeholder: #9ca3af;
+    --required: #ef4444;
+    --black: #111111;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                       linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .ltf-wrap { max-width: 780px; margin: 0 auto; }
+
+  .ltf-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .ltf-header-icon {
+    width: 48px; height: 48px; min-width: 48px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .ltf-header-icon svg { width: 20px; height: 20px; }
+  .ltf-header h1 { font-size: 22px; font-weight: 900; margin-bottom: 2px; }
+  .ltf-header p { font-size: 14px; color: var(--text-dim); }
+
+  .ltf-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  .ltf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 24px;
+  }
+
+  .ltf-field { display: flex; flex-direction: column; gap: 8px; }
+  .ltf-field.full { grid-column: 1 / -1; }
+
+  .ltf-field label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .ltf-field label .req { color: var(--required); margin-left: 2px; }
+
+  .ltf-field input,
+  .ltf-field textarea {
+    width: 100%;
+    background: var(--field-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ltf-field input::placeholder,
+  .ltf-field textarea::placeholder { color: var(--placeholder); }
+
+  .ltf-field input:focus,
+  .ltf-field textarea:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 3px rgba(17,24,39,0.08);
+  }
+
+  .ltf-field textarea { resize: vertical; min-height: 90px; font-family: inherit; }
+
+  .ltf-field.invalid input,
+  .ltf-field.invalid textarea { border-color: var(--required); }
+
+  .ltf-error {
+    font-size: 12px;
+    color: var(--required);
+    min-height: 14px;
+  }
+
+  .ltf-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0 20px;
+  }
+
+  .ltf-actions { display: flex; justify-content: flex-end; }
+
+  .ltf-submit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--black);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .ltf-submit:hover:not(:disabled) { transform: translateY(-1px); }
+  .ltf-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .ltf-spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: ltf-spin 0.7s linear infinite;
+    display: none;
+  }
+  .ltf-submit.loading .ltf-spinner { display: inline-block; }
+  @keyframes ltf-spin { to { transform: rotate(360deg); } }
+
+  /* Toast */
+  .ltf-toast {
+    position: fixed;
+    top: 24px; left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2000;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .ltf-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .ltf-toast.success { border-left: 4px solid #16a34a; }
+  .ltf-toast.error { border-left: 4px solid var(--required); }
+  .ltf-toast-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+  @media (max-width: 640px) {
+    .ltf-grid { grid-template-columns: 1fr; }
+    .ltf-card { padding: 24px; }
+    .ltf-actions { justify-content: stretch; }
+    .ltf-submit { width: 100%; justify-content: center; }
+  }
