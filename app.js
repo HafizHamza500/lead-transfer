@@ -35,6 +35,17 @@
     setTimeout(() => toast.classList.remove('show'), 3500);
   }
 
+  function formatPhone(value) {
+  const digits = value.replace(/\D/g, "").slice(0, 10);
+
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) {
+    return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  }
+
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
   function validate() {
     let valid = true;
     const values = {};
@@ -67,7 +78,11 @@
 
     return { valid, values };
   }
+const phoneInput = document.getElementById("primaryPhone");
 
+phoneInput.addEventListener("input", function () {
+  this.value = formatPhone(this.value);
+});
   fields.forEach((name) => {
     document.getElementById(name).addEventListener('input', () => clearError(name));
   });
@@ -76,6 +91,7 @@
     e.preventDefault();
     const { valid, values } = validate();
     if (!valid) return;
+    values.primaryPhone = values.primaryPhone.replace(/\D/g, "");
 
     submitBtn.disabled = true;
     submitBtn.classList.add('loading');
