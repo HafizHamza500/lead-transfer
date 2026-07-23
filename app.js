@@ -8,7 +8,7 @@
   const toastIcon = document.getElementById('toastIcon');
   const toastText = document.getElementById('toastText');
 
-  const fields = ['leadDate', 'firstName', 'lastName', 'primaryPhone', 'addressOne', 'currentCarrier', 'income', 'comments'];
+  const fields = ['leadDate', 'firstName', 'lastName', 'primaryPhone', 'addressOne', 'city', 'state', 'postalCode', 'currentCarrier', 'income', 'comments'];
 
   function showError(name, message) {
     const wrap = document.getElementById('field-' + name);
@@ -64,8 +64,19 @@
     if (!phoneRegex.test(values.primaryPhone)) { showError('primaryPhone', 'Enter a valid phone number'); valid = false; }
     else clearError('primaryPhone');
 
-    if (values.addressOne.length < 5) { showError('addressOne', 'Property address is required'); valid = false; }
+    if (values.addressOne.length < 5) { showError('addressOne', 'Street address is required'); valid = false; }
     else clearError('addressOne');
+
+    if (values.city.length < 2) { showError('city', 'City is required'); valid = false; }
+    else clearError('city');
+
+    const stateRegex = /^[A-Za-z]{2}$/;
+    if (!stateRegex.test(values.state)) { showError('state', 'Enter a valid 2-letter state'); valid = false; }
+    else clearError('state');
+
+    const postalRegex = /^\d{5}(-\d{4})?$/;
+    if (!postalRegex.test(values.postalCode)) { showError('postalCode', 'Enter a valid postal code'); valid = false; }
+    else clearError('postalCode');
 
     if (!values.currentCarrier) { showError('currentCarrier', 'This field is required'); valid = false; }
     else clearError('currentCarrier');
@@ -83,6 +94,17 @@ const phoneInput = document.getElementById("primaryPhone");
 phoneInput.addEventListener("input", function () {
   this.value = formatPhone(this.value);
 });
+
+const stateInput = document.getElementById("state");
+stateInput.addEventListener("input", function () {
+  this.value = this.value.toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2);
+});
+
+const postalInput = document.getElementById("postalCode");
+postalInput.addEventListener("input", function () {
+  this.value = this.value.replace(/[^0-9-]/g, "").slice(0, 10);
+});
+
   fields.forEach((name) => {
     document.getElementById(name).addEventListener('input', () => clearError(name));
   });
@@ -93,6 +115,22 @@ phoneInput.addEventListener("input", function () {
     if (!valid) return;
     values.primaryPhone = values.primaryPhone.replace(/\D/g, "");
 
+    // Build final payload: addressOne = "street, STATE postalCode"
+    // city, state, postalCode are also sent separately
+    const payload = {
+      leadDate: values.leadDate,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      primaryPhone: values.primaryPhone,
+      addressOne: `${values.addressOne}, ${values.state} ${values.postalCode}`,
+      city: values.city,
+      state: values.state,
+      postalCode: values.postalCode,
+      currentCarrier: values.currentCarrier,
+      income: values.income,
+      comments: values.comments
+    };
+
     submitBtn.disabled = true;
     submitBtn.classList.add('loading');
     submitBtnText.textContent = 'Transferring...';
@@ -100,7 +138,7 @@ phoneInput.addEventListener("input", function () {
     fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values)
+      body: JSON.stringify(payload)
     })
       .then((res) => {
         if (!res.ok) throw new Error('Request failed');

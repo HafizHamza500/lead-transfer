@@ -52,8 +52,26 @@
           </div>
 
           <div class="ltf-field full" id="field-addressOne">
-            <label for="addressOne">Property Address<span class="req">*</span></label>
-            <input type="text" id="addressOne" name="addressOne" placeholder="123 Main Street, Dallas, TX 75201" autocomplete="off">
+            <label for="addressOne">Street Address<span class="req">*</span></label>
+            <input type="text" id="addressOne" name="addressOne" placeholder="123 Main Street" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field" id="field-city">
+            <label for="city">City<span class="req">*</span></label>
+            <input type="text" id="city" name="city" placeholder="City" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field" id="field-state">
+            <label for="state">State<span class="req">*</span></label>
+            <input type="text" id="state" name="state" placeholder="TX" maxlength="2" autocomplete="off">
+            <span class="ltf-error"></span>
+          </div>
+
+          <div class="ltf-field" id="field-postalCode">
+            <label for="postalCode">Postal Code<span class="req">*</span></label>
+            <input type="text" id="postalCode" name="postalCode" placeholder="75201" maxlength="10" autocomplete="off">
             <span class="ltf-error"></span>
           </div>
 
